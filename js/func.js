@@ -47,7 +47,7 @@ function createDateNode(text, i, j, mon) {
   var s = document.createElement("span");
   var t = document.createTextNode(text);
   s.classList.add("text");
-  console.log("G", mon, date.getMonth(), month[mon]);
+  // console.log("G", mon, date.getMonth(), month[mon]);
   if (i === date.getDate()) {
     if (
       (i == 1 && mon === date.getMonth()) ||
@@ -66,18 +66,6 @@ function createDateNode(text, i, j, mon) {
     d.appendChild(m);
   }
   return d;
-}
-
-function calcFirstDayofWeek(tdate, tday) {
-  var dateMod = tdate % 7;
-  console.log(dateMod);
-  var cd = tday;
-  while (dateMod > 0) {
-    dateMod--;
-    if (cd > 0) cd -= 1;
-    else cd = 6;
-  }
-  return (cd + 1) % 7;
 }
 
 function calcFirstDayofYear(y, M = 0, k = 1) {

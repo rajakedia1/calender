@@ -47,7 +47,7 @@ function showCalender() {
     }
   }
   for (var i = k; i < 7; i++) showDate[w][i] = i - k + 1;
-  console.log("h", showDate, w, k);
+  // console.log("h", showDate, w, k);
   var firstMonth = [];
   var wrapperNode = [];
 
@@ -74,7 +74,7 @@ function showCalender() {
   }
   mNode.push(monthsforyear);
 
-  console.log("F: ", mNode);
+  // console.log("F: ", mNode);
   var monthsNode = createMonthNode(0),
     k = 1;
   for (i = 0; i < weekInYear + 1; i++) {
