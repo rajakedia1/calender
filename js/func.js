@@ -12,7 +12,8 @@ var month = [
   "September",
   "October",
   "November",
-  "December"
+	"December",
+	"January"
 ];
 
 var weekInYear = 52;

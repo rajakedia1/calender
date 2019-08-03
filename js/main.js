@@ -46,11 +46,13 @@ function showCalender() {
       }
     }
   }
+  for (var i = k; i < 7; i++) showDate[w][i] = i - k + 1;
+  console.log("h", showDate, w, k);
   var firstMonth = [];
   var wrapperNode = [];
 
   var monthsforyear = [];
-  for (var i = 0; i < weekInYear; i++) {
+  for (var i = 0; i < weekInYear + 1; i++) {
     var rows = document.createElement("div");
     rows.classList.add("row");
     for (j = 0; j < 7; j++) {
@@ -72,32 +74,33 @@ function showCalender() {
   }
   mNode.push(monthsforyear);
 
-  // console.log("F: ", mNode);
+  console.log("F: ", mNode);
   var monthsNode = createMonthNode(0),
     k = 1;
-  for (i = 0; i < weekInYear; i++) {
+  for (i = 0; i < weekInYear + 1; i++) {
     if (i > 0 && i === firstMonth[k]) {
       k++;
       // console.log("F: ", i, k, monthsNode);
 
       document.querySelector(".wrapper").appendChild(monthsNode);
-      monthsNode = createMonthNode(k-1);
+      monthsNode = createMonthNode(k - 1);
       monthsNode.appendChild(wrapperNode[i]);
     } else {
       // console.log("G: ", i, k, monthsNode);
       monthsNode.appendChild(wrapperNode[i]);
     }
   }
+  document.querySelector(".wrapper").appendChild(monthsNode);
 }
 
 window.addEventListener(
   "DOMContentLoaded",
   function() {
-		// var heightActive = 
-		document.getElementById(month[date.getMonth()]).scrollIntoView();
-		// getBoundingClientRect();
-		// console.log("x", heightActive);
-		window.scrollTo(0, 200);
+    // var heightActive =
+    document.getElementById(month[date.getMonth()]).scrollIntoView();
+    // getBoundingClientRect();
+    // console.log("x", heightActive);
+    window.scrollTo(0, 200);
     document.querySelectorAll(".wrapper .months").forEach((months, index) => {
       months.classList.remove("actived");
 
