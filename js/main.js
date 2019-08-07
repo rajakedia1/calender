@@ -1,10 +1,13 @@
 var mNode = [];
+
 (function() {
   main();
 })();
 
 function main() {
   showWeekRow();
+
+  fetch()
   showCalender();
 }
 

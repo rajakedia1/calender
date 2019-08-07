@@ -20,6 +20,14 @@ var weekInYear = 52;
 
 var dayinmonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
+const listOfHolidays = holidays.map((holiday) => {
+	let date = new Date(`${holiday.date} ${currentYear}`);
+	holiday.day = days[date.getDay()];
+	return holiday;
+});
+
+
+
 function createDayNode(text, i) {
   var d = document.createElement("div");
   d.classList.add("day");
