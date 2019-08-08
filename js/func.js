@@ -12,21 +12,21 @@ var month = [
   "September",
   "October",
   "November",
-	"December",
-	"January"
+  "December",
+  "January"
 ];
 
 var weekInYear = 52;
 
 var dayinmonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-const listOfHolidays = holidays.map((holiday) => {
-	let date = new Date(`${holiday.date} ${currentYear}`);
-	holiday.day = days[date.getDay()];
-	return holiday;
-});
+var listOfHolidays;
 
-
+function findHoliday(d, m, y) {
+  return listOfHolidays.filter(holiday => {
+    return holiday.d === d && holiday.m === m;
+  });
+}
 
 function createDayNode(text, i) {
   var d = document.createElement("div");
@@ -42,18 +42,21 @@ function createDayNode(text, i) {
 
 function createMonthNode(i) {
   var months = document.createElement("div");
-	months.classList.add("months");
-	months.id = month[i];
+  months.classList.add("months");
+  months.id = month[i];
   return months;
 }
 
 function createDateNode(text, i, j, mon) {
   var d = document.createElement("div");
   d.classList.add("date");
-  if (i === date.getDate()) d.classList.add("date-active");
+  // if (i === date.getDate()) 
   if (!j) d.classList.add("sun");
   var s = document.createElement("span");
   var t = document.createTextNode(text);
+
+  // console.log(findHoliday(text, mon))
+
   s.classList.add("text");
   // console.log("G", mon, date.getMonth(), month[mon]);
   if (i === date.getDate()) {
@@ -62,17 +65,33 @@ function createDateNode(text, i, j, mon) {
       (i != 1 && mon - 1 === date.getMonth())
     ) {
       s.classList.add("active");
+      d.classList.add("date-active");
     }
   }
   s.appendChild(t);
-  d.appendChild(s);
+  var ed = document.createElement("div");
+  ed.classList.add("date-box");
+  ed.appendChild(s);
+
   if (i === 1 && window.innerWidth >= 500) {
     var m = document.createElement("p");
     if (1 === date.getDate()) m.classList.add("month");
     else m.classList.add("month-active");
     m.innerHTML = month[mon].substr(0, 3);
-    d.appendChild(m);
+    ed.appendChild(m);
   }
+  d.appendChild(ed);
+
+  var holiday = findHoliday(text, text !== 1 ? mon - 1 : mon);
+  if (holiday) {
+    holiday.forEach(element => {
+      var h = document.createElement("div");
+      h.classList.add("fest");
+      h.innerHTML = element.holiday;
+      d.appendChild(h);
+    });
+  }
+
   return d;
 }
 

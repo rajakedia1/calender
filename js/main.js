@@ -6,9 +6,26 @@ var mNode = [];
 
 function main() {
   showWeekRow();
+  fetch(
+    "https://raw.githubusercontent.com/rajakedia1/calender/master/json/holidays.json"
+  )
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(holidays) {
+      listOfHolidays = holidays.map(holiday => {
+        let date = new Date(`${holiday.date} ${2019}`);
+        // holiday.day = days[date.getDay()];
+        holiday.d = date.getDate();
+        holiday.m = date.getMonth();
+        return holiday;
+      });
 
-  fetch()
-  showCalender();
+      showCalender();
+      document.getElementById("loader").innerHTML = "";
+      document.getElementById(month[date.getMonth()]).scrollIntoView();
+      scrollListener();
+    });
 }
 
 function showTitle(mon) {
@@ -96,55 +113,25 @@ function showCalender() {
   document.querySelector(".wrapper").appendChild(monthsNode);
 }
 
-window.addEventListener(
-  "DOMContentLoaded",
-  function() {
-    // var heightActive =
-    document.getElementById(month[date.getMonth()]).scrollIntoView();
-    // getBoundingClientRect();
-    // console.log("x", heightActive);
-    window.scrollTo(0, 200);
-    document.querySelectorAll(".wrapper .months").forEach((months, index) => {
-      months.classList.remove("actived");
+function scrollListener() {
+  document.querySelectorAll(".wrapper .months").forEach((months, index) => {
+    months.classList.remove("actived");
 
-      if (isElementInViewport(months)) {
-        mNode.forEach(node =>
-          node.forEach(m => {
-            m.classList.remove("active-m");
-          })
-        );
-        months.classList.add("actived");
-        showTitle(month[index]);
-        // console.log("x:", mNode[index + 1].length, index + 1);
-        mNode[index + 1].forEach(m => {
-          m.classList.add("active-m");
-        });
-        // console.log("x:", mNode[index + 1], index + 1);
-      }
-    });
-  },
-  false
-);
+    if (isElementInViewport(months)) {
+      mNode.forEach(node =>
+        node.forEach(m => {
+          m.classList.remove("active-m");
+        })
+      );
+      months.classList.add("actived");
+      showTitle(month[index]);
+      mNode[index + 1].forEach(m => {
+        m.classList.add("active-m");
+      });
+    }
+  });
+}
 
-document.querySelector(".wrapper").addEventListener(
-  "scroll",
-  function() {
-    document.querySelectorAll(".wrapper .months").forEach((months, index) => {
-      months.classList.remove("actived");
-
-      if (isElementInViewport(months)) {
-        mNode.forEach(node =>
-          node.forEach(m => {
-            m.classList.remove("active-m");
-          })
-        );
-        months.classList.add("actived");
-        showTitle(month[index]);
-        mNode[index + 1].forEach(m => {
-          m.classList.add("active-m");
-        });
-      }
-    });
-  },
-  false
-);
+document
+  .querySelector(".wrapper")
+  .addEventListener("scroll", scrollListener, false);
