@@ -50,15 +50,11 @@ function createMonthNode(i) {
 function createDateNode(text, i, j, mon) {
   var d = document.createElement("div");
   d.classList.add("date");
-  // if (i === date.getDate()) 
   if (!j) d.classList.add("sun");
   var s = document.createElement("span");
   var t = document.createTextNode(text);
 
-  // console.log(findHoliday(text, mon))
-
   s.classList.add("text");
-  // console.log("G", mon, date.getMonth(), month[mon]);
   if (i === date.getDate()) {
     if (
       (i == 1 && mon === date.getMonth()) ||
@@ -112,10 +108,8 @@ function calcFirstDayofYear(y, M = 0, k = 1) {
 
 function isElementInViewport(el) {
   var rect = el.getBoundingClientRect();
-  // console.log("D", rect.top)
   var views = rect.top > 0 ? window.innerHeight - rect.top : rect.bottom;
   return (
     views >= window.innerHeight / 2
-    // rect.bottom <= (window.innerHeight || document. documentElement.clientHeight)
   );
 }
