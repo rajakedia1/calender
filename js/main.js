@@ -7,7 +7,7 @@ var mNode = [];
 function main() {
   showWeekRow();
   fetch(
-    "https://raw.githubusercontent.com/rajakedia1/calender/master/json/holidays.json"
+    "https://raw.githubusercontent.com/rajakedia1/calender/master/build/holidays.json"
   )
     .then(function(response) {
       return response.json();
